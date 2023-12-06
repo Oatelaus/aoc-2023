@@ -14,12 +14,10 @@ function rangeBetween(time: number, distance: number) {
   return Math.ceil((time + discrim) / 2) - Math.floor((time - discrim) / 2) - 1;
 }
 
-export function part1(input: string) {
-  const [time, distance] = chunk(input.match(/\d+/g)?.map(Number) || [], 4);
-  return time.reduce(
-    (acc, timeSegment, i) => acc * rangeBetween(timeSegment, distance[i]),
-    1
-  );
+export function part2(input: string) {
+  const [time, distance] = input
+    .split("\n")
+    .map((str) => Number(str.match(/\d/g)?.join("")));
+  return rangeBetween(time, distance);
 }
-
-console.log(part1(readFileSync(join(__dirname, "input"), "utf8")));
+console.log(part2(readFileSync(join(__dirname, "input"), "utf8")));
