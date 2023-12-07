@@ -4,22 +4,9 @@ import { join } from "path";
 const order = "23456789TJQKA".split("");
 
 function handStrength(hand: [string, number][]) {
-  hand.sort((a, b) => b[1] - a[1]);
+  const counts = hand.toSorted((a, b) => b[1] - a[1]).map((card) => card[1]);
 
-  const counts = hand.map((card) => card[1]);
-
-  const handTypes: Record<string, number> = {
-    "5": 7,
-    "4,1": 6,
-    "3,2": 5,
-    "3,1,1": 4,
-    "2,2,1": 3,
-    "2,1,1,1": 2,
-    "1,1,1,1,1": 1,
-  };
-
-  const key = counts.join(",");
-  return handTypes[key] || -1;
+  return (counts[0] || 0) * 5 + (counts[1] || 0);
 }
 
 function customSort(a: [string, number, number], b: [string, number, number]) {
